@@ -298,11 +298,7 @@ if (trendChartElement) {
                 }
             })() : `You have no financial goals yet. Click to add your first goal!`;
 
-        // ✅ Net Worth Card
-        document.getElementById('net-worth-summary').innerHTML = netWorthData.status === 'error'
-            ? 'Error loading net worth'
-            : `Your current net worth is <strong class="text-white">₹${(netWorthData.net_worth || netWorthData.total || 0).toFixed(2)}</strong>.<br>
-                Click to manage assets and debts.`;
+       
 
         // ✅ Recurring Transactions
         document.getElementById('recurring-trans-summary').innerHTML = recurringTrans.status === 'error'

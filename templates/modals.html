@@ -1,0 +1,430 @@
+<div class="modal fade" id="addTransactionModal" tabindex="-1" aria-labelledby="addTransactionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTransactionModalLabel">Add New Transaction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="trans-form">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="type" class="form-label">Type</label>
+                            <select id="type" class="form-select">
+                                <option value="income">Income</option>
+                                <option value="expense">Expense</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="category" class="form-label">Category</label>
+                            <select id="category" class="form-select">
+                                <option value="" disabled selected>Select a category</option>
+                            </select>
+                            <div class="invalid-feedback">Category is required.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="amount" class="form-label">Amount (₹)</label>
+                            <input type="number" id="amount" class="form-control" placeholder="e.g., 500" step="0.01" min="0">
+                            <div class="invalid-feedback">Enter a valid amount.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="date" class="form-label">Date</label>
+                            <input type="date" id="date" class="form-control">
+                            <div class="invalid-feedback">Date is required.</div>
+                        </div>
+                        <div class="col-12 text-end">
+                            <button type="submit" class="btn btn-primary">Add Transaction</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="monthlyComparisonModal" tabindex="-1" aria-labelledby="monthlyComparisonModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="monthlyComparisonModalLabel">Monthly Spending Comparison</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row text-center mb-4">
+                    <div class="col-6">
+                        <h5>This Month</h5>
+                        <p class="h4 text-danger fw-bold" id="current-month-total"></p>
+                    </div>
+                    <div class="col-6">
+                        <h5>Last Month</h5>
+                        <p class="h4 fw-bold" id="prev-month-total"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <canvas id="monthlyComparisonChart"></canvas>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h6 class="text-center">Category Breakdown Comparison</h6>
+                        <table class="table table-bordered table-striped mt-3">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>This Month (₹)</th>
+                                    <th>Last Month (₹)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="comparison-table-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="trendModal" tabindex="-1" aria-labelledby="trendModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="trendModalLabel">Spending Trend Analysis</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label for="trend-period" class="form-label">Period</label>
+                        <select id="trend-period" class="form-select">
+                            <option value="monthly">Monthly</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="daily">Daily</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h6>Trend Summary</h6>
+                        <p id="trend-summary"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="text-center">Spending Trend</h5>
+                        <canvas id="detailedTrendChart" class="chart-container"></canvas>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h6 class="text-center">Spending Breakdown</h6>
+                        <table class="table table-bordered table-striped mt-3">
+                            <thead>
+                                <tr>
+                                    <th>Period</th>
+                                    <th>Amount (₹)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="trend-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="transactionsModal" tabindex="-1" aria-labelledby="transactionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="transactionsModalLabel">All Transactions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul id="all-transactions-list" class="list-group list-group-flush"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="budgetModal" tabindex="-1" aria-labelledby="budgetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="budgetModalLabel">Budget Recommendations</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h6>Budget Overview</h6>
+                        <p><strong>Total Budget:</strong> <span id="total-budget">₹0.00</span></p>
+                        <p><strong>Status:</strong> <span id="budget-status">N/A</span></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h6>Category Budgets</h6>
+                        <div id="detailed-budget">
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="save-budget-changes">Save Changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="analyzeModal" tabindex="-1" aria-labelledby="analyzeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="analyzeModalLabel">Detailed Overspending Analysis</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="detailed-analyze"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="investmentsModal" tabindex="-1" aria-labelledby="investmentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="investmentsModalLabel">Investment Suggestions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="detailed-investments"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="offersModal" tabindex="-1" aria-labelledby="offersModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="offersModalLabel">Personalized Offers</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="detailed-offers"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="forecastModal" tabindex="-1" aria-labelledby="forecastModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="forecastModalLabel">Future Expense Forecast</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="detailed-forecast"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="budgetAlertsModal" tabindex="-1" aria-labelledby="budgetAlertsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="budgetAlertsModalLabel">Monthly Budget Alerts</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="detailed-budget-alerts"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="goalsModal" tabindex="-1" aria-labelledby="goalsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="goalsModalLabel">Financial Goals</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="my-4">Add New Goal</h5>
+                <form id="modal-goal-form" class="mb-3">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <input type="text" id="modal-goal-name" class="form-control" placeholder="Goal Name (e.g., Vacation)">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" id="modal-target-amount" class="form-control" placeholder="Target (₹)" step="0.01" min="0">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="date" id="modal-deadline" class="form-control">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100"><i class="fas fa-plus"></i> Add</button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <h5 class="my-4">Your Current Goals</h5>
+                <ul id="modal-goals-list"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editGoalModal" tabindex="-1" aria-labelledby="editGoalModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editGoalModalLabel">Edit Goal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-goal-form">
+                    <input type="hidden" id="edit-goal-id">
+                    <div class="mb-3">
+                        <label for="edit-goal-name" class="form-label">Goal Name</label>
+                        <input type="text" class="form-control" id="edit-goal-name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-target-amount" class="form-label">Target Amount (₹)</label>
+                        <input type="number" class="form-control" id="edit-target-amount" step="0.01" min="0" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-deadline" class="form-label">Deadline</label>
+                        <input type="date" class="form-control" id="edit-deadline" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="netWorthModal" tabindex="-1" aria-labelledby="netWorthModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="netWorthModalLabel">Net Worth & Financial Position</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-center my-3">Current Net Worth: <span id="current-net-worth" class="fw-bold"></span></h4>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Assets</h5>
+                                <form id="add-asset-form" class="mb-3">
+                                    <div class="row g-2">
+                                        <div class="col-md-5"><input type="text" id="asset-name" class="form-control" placeholder="Asset Name"></div>
+                                        <div class="col-md-4"><input type="number" id="asset-value" class="form-control" placeholder="Value (₹)"></div>
+                                        <div class="col-md-3"><button type="submit" class="btn btn-primary w-100">Add</button></div>
+                                    </div>
+                                </form>
+                                <ul id="assets-list" class="list-group list-group-flush mt-3"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Debts</h5>
+                                <form id="add-debt-form" class="mb-3">
+                                    <div class="row g-2">
+                                        <div class="col-md-5"><input type="text" id="debt-name" class="form-control" placeholder="Debt Name"></div>
+                                        <div class="col-md-4"><input type="number" id="debt-amount" class="form-control" placeholder="Amount Owed"></div>
+                                        <div class="col-md-3"><button type="submit" class="btn btn-primary w-100">Add</button></div>
+                                    </div>
+                                </form>
+                                <ul id="debts-list" class="list-group list-group-flush mt-3"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="recurringTransModal" tabindex="-1" aria-labelledby="recurringTransModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="recurringTransModalLabel">Recurring Transactions & Subscriptions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-4 mb-4">
+                    <div class="col-12">
+                        <h5 class="card-title text-center">Expense Distribution</h5>
+                        <div class="d-flex justify-content-center">
+                            <canvas id="recurringPieChart" class="chart-container"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <h5 class="my-4">Add New Recurring Transaction</h5>
+                        <form id="add-recurring-form" class="mb-3">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <select id="recurring-type" class="form-select">
+                                        <option value="income">Income</option>
+                                        <option value="expense">Expense</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" id="recurring-category" class="form-control" placeholder="Category">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" id="recurring-amount" class="form-control" placeholder="Amount (₹)">
+                                </div>
+                                <div class="col-md-3">
+                                    <select id="recurring-frequency" class="form-select">
+                                        <option value="monthly">Monthly</option>
+                                        <option value="weekly">Weekly</option>
+                                        <option value="yearly">Yearly</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 text-end">
+                                    <button type="submit" class="btn btn-primary">Add Transaction</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+                <h5 class="my-4">Your Recurring Items</h5>
+                <ul id="recurring-list" class="list-group list-group-flush"></ul>
+            </div>
+        </div>
+    </div>
+</div>

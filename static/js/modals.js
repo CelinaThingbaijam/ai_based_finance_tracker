@@ -1072,4 +1072,3 @@ window.payDebt = payDebt;
 window.deleteAsset = deleteAsset;
 window.deleteDebt = deleteDebt;
 window.deleteRecurringTransaction = deleteRecurringTransaction;
-
