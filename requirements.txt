@@ -1,0 +1,11 @@
+flask==3.0.3
+flask-login==0.6.3
+werkzeug==3.0.3
+pandas==2.2.2
+numpy==1.26.4
+torch==2.4.0
+matplotlib==3.9.2
+yfinance==0.2.41
+requests==2.32.3
+scikit-learn==1.5.1
+statsmodels==0.14.2

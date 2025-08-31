@@ -1,0 +1,257 @@
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body.dark-theme {
+    background-color: #2c3e50;
+    color: #e0e0e0;
+}
+
+#wrapper {
+    display: flex;
+    transition: all 0.5s ease;
+}
+
+#sidebar-wrapper {
+    min-width: 250px;
+    background-color: #34495e;
+    color: #e0e0e0;
+    border-right: 1px solid #495057;
+    transition: margin 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: -250px;
+}
+
+#page-content-wrapper {
+    flex-grow: 1;
+    width: 100%;
+    padding: 1rem;
+    transition: width 0.5s ease;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    width: calc(100% + 250px);
+}
+
+.sidebar-heading {
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 1px solid #495057;
+}
+
+.list-group-item.active {
+    background-color: #495057 !important;
+    color: white !important;
+}
+
+.month-grid .month-link {
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: background-color 0.2s;
+}
+
+.month-grid .month-link:hover {
+    background-color: #495057;
+    color: white !important;
+}
+
+.month-grid .active-month .month-link {
+    background-color: #3498db;
+    color: white !important;
+    font-weight: bold;
+}
+
+.top-navbar {
+    background-color: #34495e !important;
+    border-bottom: 1px solid #495057;
+}
+
+.top-navbar .navbar-nav .nav-link,
+.top-navbar .navbar-brand,
+.top-navbar .text-white {
+    color: #e0e0e0 !important;
+}
+
+.top-navbar .btn-outline-light {
+    color: #e0e0e0;
+    border-color: #e0e0e0;
+}
+
+.top-navbar .btn-outline-light:hover {
+    background-color: #e0e0e0;
+    color: #34495e;
+}
+
+.spinner-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.spinner-container.show {
+    display: block;
+}
+
+.chart-container {
+    max-height: 300px;
+    width: 100%;
+}
+
+.btn-delete {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-delete:hover {
+    color: #b02a37;
+}
+
+.progress {
+    height: 10px;
+    margin-top: 5px;
+    background-color: #495057;
+}
+
+.progress-bar {
+    background-color: #28a745;
+}
+
+#transactions-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+#transactions-list li span {
+    flex-grow: 1;
+}
+
+.card {
+    background-color: #34495e;
+    color: #e0e0e0;
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-title {
+    color: #bdc3c7;
+    font-size: 1rem;
+}
+
+.card-red-bg {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.card-red-bg h5, .card-red-bg h2 {
+    color: white !important;
+}
+
+.list-group-item {
+    background-color: transparent;
+    border-color: #495057;
+}
+
+.list-group-item span {
+    color: #e0e0e0;
+}
+
+.list-group-item:hover {
+    background-color: #495057;
+}
+
+.modal-content {
+    background-color: #34495e;
+    color: #e0e0e0;
+}
+
+.modal-header, .modal-footer {
+    border-color: #495057;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+.text-danger {
+    color: #e74c3c !important;
+}
+
+.text-success {
+    color: #2ecc71 !important;
+}
+
+#monthly-spending-display {
+    background-color: #34495e !important;
+    color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1.5rem !important;
+}
+
+#monthly-spending-summary {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Add this CSS to your styles.css file */
+.card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* For the dark theme, adjust the shadow to be more subtle */
+body.dark-theme .card:hover {
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+}
+/* styles.css */
+.budget-input {
+    max-width: 150px;
+}
+.progress {
+    height: 1.5rem;
+    background-color: var(--bs-light);
+}
+.progress-bar {
+    transition: width 0.3s ease-in-out;
+}
+.dark-theme .progress {
+    background-color: #2c3e50;
+}
+.dark-theme .progress-bar {
+    color: #e0e0e0;
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Finance Tracker{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.2.2/introjs.min.css" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <div class="d-flex" id="wrapper">
+        <div class="bg-dark border-right vh-100 p-3 sidebar" id="sidebar-wrapper">
+            <div class="sidebar-heading text-white">TrackEx</div>
+            <div class="list-group list-group-flush mt-4">
+                <a href="{{ url_for('home') }}" class="list-group-item list-group-item-action bg-transparent text-white border-0"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
+                <a href="{{ url_for('today_spending') }}" class="list-group-item list-group-item-action bg-transparent text-white border-0"><i class="fas fa-calendar-day me-2"></i> Today's Spending</a>
+            </div>
+            <div class="mt-5 text-white">
+                <h6>Months</h6>
+                <div class="row g-2 month-grid">
+                    {% set months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] %}
+                    {% for m in range(1, 13) %}
+                    <div class="col-4">
+                        <a href="#" class="month-link text-white-50 text-center py-2 d-block rounded {% if m == now.month %}active-month{% endif %}"
+                           data-month="{{ m }}" data-year="{{ now.year }}">
+                            {{ months[m-1] }}
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom top-navbar">
+                <button class="btn btn-primary d-md-none" id="menu-toggle"><i class="fas fa-bars"></i></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        {% if current_user.is_authenticated %}
+                        <li class="nav-item d-flex align-items-center me-3">
+                            <span class="text-white">Hi, {{ current_user.username }}!</span>
+                        </li>
+                        <li class="nav-item me-3">
+                            <a class="btn btn-outline-light" href="{{ url_for('logout') }}">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <button id="theme-toggle" class="btn btn-link nav-link text-white"><i class="fas fa-sun"></i></button>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ url_for('login') }}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ url_for('register') }}">Register</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid mt-4">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    {{ messages[0] }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endif %}
+                {% endwith %}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.2.2/intro.min.js"></script>
+    <script type="module" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
